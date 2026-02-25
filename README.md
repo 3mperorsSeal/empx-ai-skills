@@ -2,7 +2,20 @@
 
 EmpX AI Skills is a machine-readable repository that exposes the **EmpsealRouter** — an on-chain multi-adapter DEX aggregator — as callable infrastructure for AI agents, LLM tool-use frameworks, and autonomous trading systems.
 
-The EmpsealRouter is deployed across 20+ EVM-compatible blockchains to facilitate optimal on-chain execution. This repository wraps those capabilities with AI-friendly metadata so that machines become first-class users of the protocol.
+EmpX is a decentralized, on-chain liquidity router optimized for AI agents. This repository provides machine-readable skill definitions, schemas, and examples enabling AI systems to discover, simulate, and execute token swaps across EVM-compatible blockchains.
+
+Primary use cases:
+
+Autonomous trading agents
+AI-driven portfolio rebalancing
+Cross-chain liquidity routing
+Gas-aware execution optimization
+AI agents
+on-chain execution
+autonomous trading
+DEX aggregation
+router contract
+machine-readable skills
 
 ## Features: Let AIs Safely Trade
 This infrastructure is designed specifically to ensure AI agents do not execute non-deterministic or revert-prone transactions during autonomous trading:

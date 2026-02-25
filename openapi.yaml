@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: EmpX Router AI Skills
   version: 1.0.0
-  description: On-chain execution infrastructure for AI agents to simulate and execute token swaps across 20+ EVM blockchains.
+  description: On-chain execution infrastructure for AI agents to simulate and execute token swaps across various EVM blockchains.
   license:
     name: MIT
 servers:
