@@ -42,14 +42,3 @@ This infrastructure is designed specifically to ensure AI agents do not execute 
 5. If profitable, agent passes the exact `adapters` and `path` array returned from the simulation directly to the `empx_execute_swap` tool, enforcing at minimum a 0.5% slippage buffer.
 
 See `examples/prompt_examples.md` for proper in-context LLM instructions.
-
-## Local Framework Testing (No API Server)
-If you want to test these capabilities in a chat interface without deploying a full OpenAPI ingestor server, you can dynamically load the JSON Skills into Python frameworks.
-
-We have included a barebones OpenAI-powered local terminal bot:
-```bash
-# Requires an OPENAI_API_KEY environment variable
-pip install openai web3
-python3 examples/local_chat_test.py
-```
-This script maps `empx-gas-aware-route.skill.json` to a native an OpenAI Tool and executes the resulting `Web3.py` simulation directly on your local machine.
