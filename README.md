@@ -6,16 +6,12 @@ EmpX is a decentralized, on-chain liquidity router optimized for AI agents. This
 
 Primary use cases:
 
-Autonomous trading agents
-AI-driven portfolio rebalancing
-Cross-chain liquidity routing
-Gas-aware execution optimization
-AI agents
-on-chain execution
-autonomous trading
-DEX aggregation
-router contract
-machine-readable skills
+- Autonomous trading agents
+- AI-driven portfolio rebalancing
+- Cross-chain liquidity routing
+- Gas-aware execution optimization
+
+**Keywords:** AI agents, on-chain execution, autonomous trading, DEX aggregation, router contract, machine-readable skills
 
 ## Features: Let AIs Safely Trade
 This infrastructure is designed specifically to ensure AI agents do not execute non-deterministic or revert-prone transactions during autonomous trading:
