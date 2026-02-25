@@ -1,0 +1,20 @@
+{
+    "chain_id": 369,
+    "name": "PulseChain",
+    "router": "0x0Cf6D948Cf09ac83a6bf40C7AD7b44657A9F2A52",
+    "wrapped_native": "0xA1077a294dDE1B09bB078844df40758a5D0f9a27",
+    "native_swap_from_func": "swapNoSplitFromPLS",
+    "native_swap_to_func": "swapNoSplitToPLS",
+    "adapters": [
+        "0x842e05D2cAF940B25d7B7Db291ABDc88748d7F90",
+        "0xb6a9140DaeBE265708785B093C0Ef561eEf26159",
+        "0x0F1cffE422EF2C85f5983Fb0B015c781BAb8A74f",
+        "0x34FD3c37c2A40e925744e102d2Cae83635CC64C3",
+        "0xa5ab0aF6eE886770B31Fb9350f7FC8F433dC2C59",
+        "0xf586000c24e2b640a0478dcf51de856df5e3328a",
+        "0xcfE09D7f35131DAfebD12356C4f52b17f65Da2E5",
+        "0x8fb6314678a9287f9B47B96e54122444e43dDE1F",
+        "0x0f5416Efd26E2EbFAB6DdCcD58859B6cfD7Df556",
+        "0x5fdd3f245ae060953dcC3C89Da8Dd4c6c26629c0"
+    ]
+}

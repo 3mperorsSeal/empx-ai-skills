@@ -1,0 +1,15 @@
+{
+    "chain_id": 1329,
+    "name": "Sei",
+    "router": "0xb0e99628d884b3f45a312BCFD7A2505Cd711b657",
+    "wrapped_native": "0xe30fedd158a2e3b13e9badaeabafc5516e95e8c7",
+    "native_swap_from_func": "swapNoSplitFromETH",
+    "native_swap_to_func": "swapNoSplitToETH",
+    "adapters": [
+        "0x93ae3552B154431316F6160d07C3f7204b44f1cF",
+        "0x1E965F231380986e11E989beEbe864Ae41881D69",
+        "0xee4AB587A566675Afad2D5Cd7703096982cC1FE5",
+        "0xEab30C23A015942BDc8204bD8dcA2780a5957a8c",
+        "0xA285098184932DA9AAa8F8B4895B93FdeeeC07a2"
+    ]
+}

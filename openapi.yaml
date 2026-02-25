@@ -1,0 +1,386 @@
+openapi: 3.0.3
+info:
+  title: EmpX Router AI Skills
+  version: 1.0.0
+  description: On-chain execution infrastructure for AI agents to simulate and execute token swaps across 20+ EVM blockchains.
+  license:
+    name: MIT
+servers:
+  - url: "https://api.empx.com/v1" # Placeholder, typically accessed via an RPC provider wrapper
+security: []
+paths:
+  /simulate/path:
+    get:
+      summary: Find best multi-hop path
+      operationId: findBestPath
+      description: Returns the optimal multi-hop route (up to maxSteps hops) using all registered adapters and trusted tokens.
+      parameters:
+        - name: chain_id
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: amountIn
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: tokenIn
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: tokenOut
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: maxSteps
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Optimal path found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormattedOffer'
+        '400':
+          description: Invalid parameters
+  /simulate/path-with-gas:
+    get:
+      summary: Find best gas-aware multi-hop path
+      operationId: findBestPathWithGas
+      description: Returns the optimal multi-hop route (up to maxSteps hops) while factoring in gas cost denominated in the output token.
+      parameters:
+        - name: chain_id
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: amountIn
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: tokenIn
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: tokenOut
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: maxSteps
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: gasPrice
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Optimal gas-aware path found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FormattedOffer'
+        '400':
+          description: Invalid parameters
+  /simulate/query:
+    get:
+      summary: Single hop query across all adapters
+      operationId: queryNoSplit
+      parameters:
+        - name: chain_id
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: amountIn
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: tokenIn
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: tokenOut
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: options
+          in: query
+          required: false
+          description: "Optional array of adapter indexes to query"
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: integer
+      responses:
+        '200':
+          description: Best single hop query result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Query'
+        '400':
+          description: Invalid parameters
+  /simulate/query-adapter:
+    get:
+      summary: Single hop query for a specific adapter
+      operationId: queryAdapter
+      parameters:
+        - name: chain_id
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: amountIn
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: tokenIn
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: tokenOut
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: index
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Adapter query result
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Amount out returned by the specific adapter
+        '400':
+          description: Invalid parameters
+  /execute/swap:
+    post:
+      summary: Execute swap along pre-computed path
+      operationId: swapNoSplit
+      parameters:
+        - name: chain_id
+          in: query
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - trade
+                - to
+                - fee
+              properties:
+                trade:
+                  $ref: '#/components/schemas/Trade'
+                to:
+                  type: string
+                fee:
+                  type: string
+      responses:
+        '200':
+          description: Swap transaction submitted successfully
+        '400':
+          description: Invalid parameters
+  /execute/swap-from-native:
+    post:
+      summary: Execute swap from native token
+      operationId: swapNoSplitFromNative # Maps dynamically to native_swap_from_func in chain JSONs
+      description: Swap starting from native token (e.g. PLS, ETH), automatically wrapped. The specific function signature (`swapNoSplitFromETH`, `swapNoSplitFromPLS`) MUST be mapped out of the `native_swap_from_func` field inside the target chain's configuration file.
+      parameters:
+        - name: chain_id
+          in: query
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - trade
+                - to
+                - fee
+              properties:
+                trade:
+                  $ref: '#/components/schemas/Trade'
+                to:
+                  type: string
+                fee:
+                  type: string
+      responses:
+        '200':
+          description: Swap transaction submitted successfully
+        '400':
+          description: Invalid parameters
+  /execute/swap-to-native:
+    post:
+      summary: Execute swap to native token
+      operationId: swapNoSplitToNative # Maps dynamically to native_swap_to_func in chain JSONs
+      description: Swap ending in native token, automatically unwrapped. The specific function signature (`swapNoSplitToETH`, `swapNoSplitToPLS`) MUST be mapped out of the `native_swap_to_func` field inside the target chain's configuration file.
+      parameters:
+        - name: chain_id
+          in: query
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - trade
+                - to
+                - fee
+              properties:
+                trade:
+                  $ref: '#/components/schemas/Trade'
+                to:
+                  type: string
+                fee:
+                  type: string
+      responses:
+        '200':
+          description: Swap transaction submitted successfully
+        '400':
+          description: Invalid parameters
+  /execute/swap-with-permit:
+    post:
+      summary: Execute swap with EIP-2612 permit
+      operationId: swapNoSplitWithPermit
+      description: Gasless approval via EIP-2612 permit before swapping
+      parameters:
+        - name: chain_id
+          in: query
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - trade
+                - to
+                - fee
+                - permitData
+              properties:
+                trade:
+                  $ref: '#/components/schemas/Trade'
+                to:
+                  type: string
+                fee:
+                  type: string
+                permitData:
+                  type: string # Abstracted, could be broken down into v, r, s, deadline
+      responses:
+        '200':
+          description: Swap transaction submitted successfully
+        '400':
+          description: Invalid parameters
+components:
+  schemas:
+    Trade:
+      type: object
+      required:
+        - amountIn
+        - amountOut
+        - path
+        - adapters
+      properties:
+        amountIn:
+          type: string
+          description: "Input token amount"
+        amountOut:
+          type: string
+          description: "Minimum output token amount (slippage protection)"
+        path:
+          type: array
+          items:
+            type: string
+          description: "List of token addresses in the route"
+        adapters:
+          type: array
+          items:
+            type: string
+          description: "List of adapter addresses used between hops"
+    Query:
+      type: object
+      required:
+        - adapter
+        - tokenIn
+        - tokenOut
+        - amountOut
+      properties:
+        adapter:
+          type: string
+          description: "Address of the adapter giving the quote"
+        tokenIn:
+          type: string
+          description: "Input token address"
+        tokenOut:
+          type: string
+          description: "Output token address"
+        amountOut:
+          type: string
+          description: "Expected output amount"
+    FormattedOffer:
+      type: object
+      required:
+        - amounts
+        - adapters
+        - path
+        - gasEstimate
+      properties:
+        amounts:
+          type: array
+          items:
+            type: string
+          description: "Amounts for each hop"
+        adapters:
+          type: array
+          items:
+            type: string
+          description: "Adapters to use for each hop"
+        path:
+          type: array
+          items:
+            type: string
+          description: "Tokens in the route"
+        gasEstimate:
+          type: string
+          description: "Estimated gas cost (sometimes denominated in output token)"

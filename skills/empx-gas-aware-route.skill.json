@@ -1,0 +1,75 @@
+{
+    "name": "empx_gas_aware_route",
+    "description": "Find the optimal multi-hop route for a token swap, accounting for the gas cost of each hop denominated in the output token. Prevents unprofitable multi-hop paths.",
+    "safety": {
+        "read_only_simulation_supported": true,
+        "slippage_control": true
+    },
+    "inputs": {
+        "type": "object",
+        "required": [
+            "chain_id",
+            "token_in",
+            "token_out",
+            "amount_in",
+            "max_steps",
+            "gas_price"
+        ],
+        "properties": {
+            "chain_id": {
+                "type": "integer",
+                "description": "Chain ID for the target blockchain."
+            },
+            "token_in": {
+                "type": "string",
+                "description": "Address of the input token."
+            },
+            "token_out": {
+                "type": "string",
+                "description": "Address of the output token."
+            },
+            "amount_in": {
+                "type": "string",
+                "description": "Amount of input token."
+            },
+            "max_steps": {
+                "type": "integer",
+                "description": "Maximum number of routing hops (up to 4)."
+            },
+            "gas_price": {
+                "type": "string",
+                "description": "The current gas price to evaluate costs."
+            }
+        }
+    },
+    "outputs": {
+        "type": "object",
+        "properties": {
+            "amounts": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                },
+                "description": "Amounts for each hop."
+            },
+            "adapters": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                },
+                "description": "Adapters used for the route hops."
+            },
+            "path": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                },
+                "description": "Tokens in the route."
+            },
+            "gasEstimate": {
+                "type": "string",
+                "description": "Estimated gas cost (sometimes denominated in output token)."
+            }
+        }
+    }
+}

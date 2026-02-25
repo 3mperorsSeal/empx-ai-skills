@@ -1,0 +1,14 @@
+{
+    "chain_id": 10001,
+    "name": "ETHW",
+    "router": "0x4bF29b3D063BE84a8206fb65050DA3E21239Ff12",
+    "wrapped_native": "0x7Bf88d2c0e32dE92CdaF2D43CcDc23e8Edfd5990",
+    "native_swap_from_func": "swapNoSplitFromETH",
+    "native_swap_to_func": "swapNoSplitToETH",
+    "adapters": [
+        "0x2f21ff788e14a531847e6658afbd725555757da5",
+        "0xc14441CBD763FBad2Db823CCa77AFAdeCbcdd0c4",
+        "0x1FB42F76F101F8EB2ed7a12aC16b028500907F80",
+        "0xcd05ae7369e14d0fd232f0d3c025d9703b779d80"
+    ]
+}

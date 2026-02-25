@@ -1,0 +1,10 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "EmpX Router",
+  "name_for_model": "empx_router",
+  "description_for_model": "Use EmpX to find best on-chain swap routes and execute gas-aware token swaps across 20+ EVM blockchains. You must simulate swaps with findBestPath or findBestPathWithGas first to get the estimated amounts before executing the swap.",
+  "api": {
+    "type": "openapi",
+    "url": "https://raw.githubusercontent.com/empx/empx-ai-skills/main/openapi.yaml"
+  }
+}

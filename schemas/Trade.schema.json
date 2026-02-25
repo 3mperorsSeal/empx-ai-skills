@@ -1,0 +1,35 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Trade",
+    "type": "object",
+    "required": [
+        "amountIn",
+        "amountOut",
+        "path",
+        "adapters"
+    ],
+    "properties": {
+        "amountIn": {
+            "type": "string",
+            "description": "Input token amount"
+        },
+        "amountOut": {
+            "type": "string",
+            "description": "Minimum output token amount (slippage protection)"
+        },
+        "path": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "List of token addresses in the route"
+        },
+        "adapters": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "description": "List of adapter addresses used between hops"
+        }
+    }
+}

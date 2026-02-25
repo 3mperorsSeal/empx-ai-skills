@@ -1,0 +1,44 @@
+{
+    "name": "empx_best_path",
+    "description": "Find the best multi-hop route for a token swap using all registered adapters and trusted tokens. This is a read-only simulation.",
+    "safety": {
+        "read_only_simulation_supported": true,
+        "slippage_control": true
+    },
+    "inputs": {
+        "type": "object",
+        "required": [
+            "chain_id",
+            "token_in",
+            "token_out",
+            "amount_in",
+            "max_steps"
+        ],
+        "properties": {
+            "chain_id": {
+                "type": "integer",
+                "description": "Chain ID for the target blockchain."
+            },
+            "token_in": {
+                "type": "string",
+                "description": "Address of the input token."
+            },
+            "token_out": {
+                "type": "string",
+                "description": "Address of the output token."
+            },
+            "amount_in": {
+                "type": "string",
+                "description": "Amount of input token."
+            },
+            "max_steps": {
+                "type": "integer",
+                "description": "Maximum number of routing hops (up to 4)."
+            }
+        }
+    },
+    "outputs": {
+        "$ref": "../schemas/Trade.schema.json",
+        "description": "Returns a Trade formatted object (FormattedOffer) with a path and expected output amounts."
+    }
+}

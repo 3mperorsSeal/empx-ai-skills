@@ -1,0 +1,68 @@
+{
+    "name": "empx_execute_swap",
+    "description": "Execute an optimal token swap on an EVM-compatible blockchain. Requires a pre-computed Trade struct which can be obtained via empx_best_path or empx_gas_aware_route simulating skills. IF the trade involves bridging to or from a native token (ETH, PLS), you MUST construct the execution using the function explicitly defined in the chain's JSON mapping under `native_swap_from_func` or `native_swap_to_func`.",
+    "safety": {
+        "read_only_simulation_supported": true,
+        "slippage_control": true
+    },
+    "inputs": {
+        "type": "object",
+        "required": [
+            "chain_id",
+            "token_in",
+            "token_out",
+            "amount_in",
+            "max_steps",
+            "gas_price"
+        ],
+        "properties": {
+            "chain_id": {
+                "type": "integer",
+                "description": "Chain ID for the target blockchain."
+            },
+            "token_in": {
+                "type": "string",
+                "description": "Address of the input token."
+            },
+            "token_out": {
+                "type": "string",
+                "description": "Address of the output token."
+            },
+            "amount_in": {
+                "type": "string",
+                "description": "Amount of input token."
+            },
+            "max_steps": {
+                "type": "integer",
+                "description": "Maximum number of routing hops (up to 4)."
+            },
+            "gas_price": {
+                "type": "string",
+                "description": "Gas price to be used for the transaction."
+            }
+        }
+    },
+    "outputs": {
+        "type": "object",
+        "properties": {
+            "amount_out": {
+                "type": "string",
+                "description": "The exact output amount returned from the swap."
+            },
+            "path": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                },
+                "description": "Tokens in the executed route."
+            },
+            "adapters": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                },
+                "description": "Adapters used for the route hops."
+            }
+        }
+    }
+}
