@@ -23,7 +23,7 @@
         },
         "amountOut": {
             "type": "string",
-            "description": "Expected output amount"
+            "description": "Expected output amount in wei"
         }
     }
 }

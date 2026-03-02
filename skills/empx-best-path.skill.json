@@ -17,7 +17,8 @@
         "properties": {
             "chain_id": {
                 "type": "integer",
-                "description": "Chain ID for the target blockchain."
+                "description": "Chain ID for the target blockchain. Supported: 369 (PulseChain), 8453 (Base), 146 (Sonic), 1329 (Sei), 80094 (Berachain), 10001 (ETHW), 30 (Rootstock)",
+                "example": 369
             },
             "token_in": {
                 "type": "string",
@@ -29,7 +30,7 @@
             },
             "amount_in": {
                 "type": "string",
-                "description": "Amount of input token."
+                "description": "Amount of input token in wei (e.g., '1000000000000000000' for 1 token with 18 decimals)"
             },
             "max_steps": {
                 "type": "integer",
