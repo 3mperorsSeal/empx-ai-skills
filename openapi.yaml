@@ -20,26 +20,32 @@ paths:
           required: true
           schema:
             type: integer
+            description: "EVM chain ID. Supported: 369 (PulseChain), 8453 (Base), 146 (Sonic), 1329 (Sei), 80094 (Berachain), 10001 (ETHW), 30 (Rootstock)"
+            example: 369
         - name: amountIn
           in: query
           required: true
           schema:
             type: string
+            description: "Token amount in wei (e.g., '1000000000000000000' for 1 token with 18 decimals)"
         - name: tokenIn
           in: query
           required: true
           schema:
             type: string
+            description: "Input token contract address (checksummed EVM address)"
         - name: tokenOut
           in: query
           required: true
           schema:
             type: string
+            description: "Output token contract address (checksummed EVM address)"
         - name: maxSteps
           in: query
           required: true
           schema:
             type: integer
+            description: "Maximum number of routing hops (1-4)"
       responses:
         '200':
           description: Optimal path found
@@ -49,6 +55,10 @@ paths:
                 $ref: '#/components/schemas/FormattedOffer'
         '400':
           description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /simulate/path-with-gas:
     get:
       summary: Find best gas-aware multi-hop path
@@ -60,31 +70,38 @@ paths:
           required: true
           schema:
             type: integer
+            description: "EVM chain ID. Supported: 369 (PulseChain), 8453 (Base), 146 (Sonic), 1329 (Sei), 80094 (Berachain), 10001 (ETHW), 30 (Rootstock)"
+            example: 369
         - name: amountIn
           in: query
           required: true
           schema:
             type: string
+            description: "Token amount in wei (e.g., '1000000000000000000' for 1 token with 18 decimals)"
         - name: tokenIn
           in: query
           required: true
           schema:
             type: string
+            description: "Input token contract address (checksummed EVM address)"
         - name: tokenOut
           in: query
           required: true
           schema:
             type: string
+            description: "Output token contract address (checksummed EVM address)"
         - name: maxSteps
           in: query
           required: true
           schema:
             type: integer
+            description: "Maximum number of routing hops (1-4)"
         - name: gasPrice
           in: query
           required: true
           schema:
             type: string
+            description: "Gas price in wei (e.g., '5000000000' for 5 gwei)"
       responses:
         '200':
           description: Optimal gas-aware path found
@@ -94,6 +111,10 @@ paths:
                 $ref: '#/components/schemas/FormattedOffer'
         '400':
           description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /simulate/query:
     get:
       summary: Single hop query across all adapters
@@ -104,21 +125,26 @@ paths:
           required: true
           schema:
             type: integer
+            description: "EVM chain ID. Supported: 369 (PulseChain), 8453 (Base), 146 (Sonic), 1329 (Sei), 80094 (Berachain), 10001 (ETHW), 30 (Rootstock)"
+            example: 369
         - name: amountIn
           in: query
           required: true
           schema:
             type: string
+            description: "Token amount in wei (e.g., '1000000000000000000' for 1 token with 18 decimals)"
         - name: tokenIn
           in: query
           required: true
           schema:
             type: string
+            description: "Input token contract address (checksummed EVM address)"
         - name: tokenOut
           in: query
           required: true
           schema:
             type: string
+            description: "Output token contract address (checksummed EVM address)"
         - name: options
           in: query
           required: false
@@ -138,6 +164,10 @@ paths:
                 $ref: '#/components/schemas/Query'
         '400':
           description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /simulate/query-adapter:
     get:
       summary: Single hop query for a specific adapter
@@ -148,26 +178,32 @@ paths:
           required: true
           schema:
             type: integer
+            description: "EVM chain ID. Supported: 369 (PulseChain), 8453 (Base), 146 (Sonic), 1329 (Sei), 80094 (Berachain), 10001 (ETHW), 30 (Rootstock)"
+            example: 369
         - name: amountIn
           in: query
           required: true
           schema:
             type: string
+            description: "Token amount in wei (e.g., '1000000000000000000' for 1 token with 18 decimals)"
         - name: tokenIn
           in: query
           required: true
           schema:
             type: string
+            description: "Input token contract address (checksummed EVM address)"
         - name: tokenOut
           in: query
           required: true
           schema:
             type: string
+            description: "Output token contract address (checksummed EVM address)"
         - name: index
           in: query
           required: true
           schema:
             type: integer
+            description: "Zero-based index of the specific adapter to query"
       responses:
         '200':
           description: Adapter query result
@@ -178,6 +214,10 @@ paths:
                 description: Amount out returned by the specific adapter
         '400':
           description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /execute/swap:
     post:
       summary: Execute swap along pre-computed path
@@ -188,6 +228,8 @@ paths:
           required: true
           schema:
             type: integer
+            description: "EVM chain ID. Supported: 369 (PulseChain), 8453 (Base), 146 (Sonic), 1329 (Sei), 80094 (Berachain), 10001 (ETHW), 30 (Rootstock)"
+            example: 369
       requestBody:
         required: true
         content:
@@ -203,13 +245,19 @@ paths:
                   $ref: '#/components/schemas/Trade'
                 to:
                   type: string
+                  description: "Recipient wallet address (checksummed EVM address)"
                 fee:
                   type: string
+                  description: "Fee amount in wei"
       responses:
         '200':
           description: Swap transaction submitted successfully
         '400':
           description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /execute/swap-from-native:
     post:
       summary: Execute swap from native token
@@ -221,6 +269,8 @@ paths:
           required: true
           schema:
             type: integer
+            description: "EVM chain ID. Supported: 369 (PulseChain), 8453 (Base), 146 (Sonic), 1329 (Sei), 80094 (Berachain), 10001 (ETHW), 30 (Rootstock)"
+            example: 369
       requestBody:
         required: true
         content:
@@ -236,13 +286,19 @@ paths:
                   $ref: '#/components/schemas/Trade'
                 to:
                   type: string
+                  description: "Recipient wallet address (checksummed EVM address)"
                 fee:
                   type: string
+                  description: "Fee amount in wei"
       responses:
         '200':
           description: Swap transaction submitted successfully
         '400':
           description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /execute/swap-to-native:
     post:
       summary: Execute swap to native token
@@ -254,6 +310,8 @@ paths:
           required: true
           schema:
             type: integer
+            description: "EVM chain ID. Supported: 369 (PulseChain), 8453 (Base), 146 (Sonic), 1329 (Sei), 80094 (Berachain), 10001 (ETHW), 30 (Rootstock)"
+            example: 369
       requestBody:
         required: true
         content:
@@ -269,13 +327,19 @@ paths:
                   $ref: '#/components/schemas/Trade'
                 to:
                   type: string
+                  description: "Recipient wallet address (checksummed EVM address)"
                 fee:
                   type: string
+                  description: "Fee amount in wei"
       responses:
         '200':
           description: Swap transaction submitted successfully
         '400':
           description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /execute/swap-with-permit:
     post:
       summary: Execute swap with EIP-2612 permit
@@ -287,6 +351,8 @@ paths:
           required: true
           schema:
             type: integer
+            description: "EVM chain ID. Supported: 369 (PulseChain), 8453 (Base), 146 (Sonic), 1329 (Sei), 80094 (Berachain), 10001 (ETHW), 30 (Rootstock)"
+            example: 369
       requestBody:
         required: true
         content:
@@ -303,15 +369,22 @@ paths:
                   $ref: '#/components/schemas/Trade'
                 to:
                   type: string
+                  description: "Recipient wallet address (checksummed EVM address)"
                 fee:
                   type: string
+                  description: "Fee amount in wei"
                 permitData:
-                  type: string # Abstracted, could be broken down into v, r, s, deadline
+                  type: string
+                  description: "ABI-encoded EIP-2612 permit signature. Encode as bytes from (uint8 v, bytes32 r, bytes32 s, uint256 deadline)."
       responses:
         '200':
           description: Swap transaction submitted successfully
         '400':
           description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   schemas:
     Trade:
@@ -324,10 +397,10 @@ components:
       properties:
         amountIn:
           type: string
-          description: "Input token amount"
+          description: "Input token amount in wei (e.g., '1000000000000000000' for 1 token with 18 decimals)"
         amountOut:
           type: string
-          description: "Minimum output token amount (slippage protection)"
+          description: "Minimum output token amount in wei — slippage protection"
         path:
           type: array
           items:
@@ -357,7 +430,7 @@ components:
           description: "Output token address"
         amountOut:
           type: string
-          description: "Expected output amount"
+          description: "Expected output amount in wei"
     FormattedOffer:
       type: object
       required:
@@ -384,3 +457,9 @@ components:
         gasEstimate:
           type: string
           description: "Estimated gas cost (sometimes denominated in output token)"
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: "Human-readable error message"

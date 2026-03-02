@@ -11,11 +11,11 @@
     "properties": {
         "amountIn": {
             "type": "string",
-            "description": "Input token amount"
+            "description": "Input token amount in wei (e.g., '1000000000000000000' for 1 token with 18 decimals)"
         },
         "amountOut": {
             "type": "string",
-            "description": "Minimum output token amount (slippage protection)"
+            "description": "Minimum output token amount in wei — slippage protection"
         },
         "path": {
             "type": "array",
